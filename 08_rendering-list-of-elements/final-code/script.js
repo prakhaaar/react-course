@@ -20,21 +20,20 @@ function Card(key, title, image, brand, price) {
 const root = createRoot(document.getElementById('root'))
 
 console.log('Hello world!!!')
-
 fetch('https://dummyjson.com/products')
   .then((res) => res.json())
   .then((data) => {
     root.render(
-      <div className="container">
-        {data.products.map((product) => {
-          return Card(
-            product.id,
-            product.title,
-            product.thumbnail,
-            product.brand,
-            product.price
-          )
-        })}
+      <div className="cont">
+        {data.products.map((product) => ( // The arrow function implicitly returns the Card component, making the code more concise and readable.
+          <Card 
+            key={product.id}        // Adding the key={product.id} helps React with efficient reconciliation when updating the list.
+            title={product.title}
+            image={product.thumbnail}
+            brand={product.brand}
+            price={product.price}
+          />
+        ))}
       </div>
-    )
-  })
+    );
+  });
